@@ -80,5 +80,71 @@ const cardNumberPattern = {
 
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern);
 
+const addButton = document.querySelector("#add-card");
+  addButton.addEventListener("click", () => {
+    alert("Cartão adicionado")
+});
+
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+// tirando o comportamento padrão de recarregar a página ao clicar no botão
+
+
+// ALTERANDO NOME DO USUÁRIO
+
+const cardHolder = document.querySelector("#card-holder");
+cardHolder.addEventListener("input", () => {
+  const ccHolder = document.querySelector(".cc-holder .value");
+  // acessando o valor 'FULANO DA SILVA'
+
+  ccHolder.innerText = cardHolder.value.length === 0 ? 'FULANO DA SILVA' : cardHolder.value
+  // alterando o valor 'FULANO DA SILVA' para o digitado
+  // o meu legth é igual a zero?
+  // se for igual a zero, deixa 'FULANO DA SILVA'
+  // senão, mostra o conteúdo digitado
+});
+
+// ALTERANDO CÓDIGO DE SEGURANÇA
+
+securityCodeMasked.on("accept", () => {
+  updateSecurityCode(securityCodeMasked.value);
+});
+
+function updateSecurityCode(code){
+  const ccSecurity = document.querySelector(".cc-security .value")
+
+  ccSecurity.innerText = code.length === 0 ? "123" : code
+};
+
+// ALTERANDO NÚMERO DO CARTÃO
+
+cardNumberMasked.on("accept", () => {
+  const cardType = cardNumberMasked.masked.currentMask.cardtype;
+  setCardType(cardType);
+  // selecionando o tipo de cartão para trocar de cor
+  
+  updateCardNumber(cardNumberMasked.value);
+});
+
+function updateCardNumber(number) {
+  const ccNumber = document.querySelector(".cc-number")
+
+  ccNumber.innerText = number.length === 0 ? "1234 5678 9012 3456" : number
+};
+
+// ALTERANDO A DATA DE EXPIRAÇÃO
+
+expirationDateMasked.on("accept", () => {
+  updateExpirationDate(expirationDateMasked.value);
+});
+
+function updateExpirationDate(date) {
+  const ccExpiration = document.querySelector(".cc-extra .value")
+
+  ccExpiration.innerText = date.length === 0 ? "02/32" : date
+};
+
+
 
 
